@@ -1,0 +1,49 @@
+CREATE TABLE habitantes(
+    id int(4) PRIMARY KEY NOT NULL,
+    nombres     VARCHAR(20) NOT NULL,
+    apellidos   VARCHAR(20) NOT NULL,
+    tipo_documento  VARCHAR(25) NOT NULL,
+    numero_identificacion int (15) NOT NULL,
+    telefono   int (10)NOT NULL,
+    correo     VARCHAR(20) NOT NULL,
+    fecha_registro    DATE
+);
+
+CREATE TABLE lista_vehiculos(
+    id int(4) PRIMARY KEY NOT NULL,
+    habitantes_id int(4) NOT NULL,
+    tipo_vehiculo  varchar(30) NOT NULL,
+    modelo  varchar(20) NOT NULL,
+    placa   varchar(7) NOT NULL
+);
+
+CREATE TABLE parqueaderos(
+    id int(4) PRIMARY KEY NOT NULL,
+    lista_vehiculos_id int(4) NOT NULL,
+    fecha datetime NOT NULL,
+    estado_ingreso varchar(10) NOT NULL
+);
+
+
+CREATE TABLE facturas(
+    id int(4) PRIMARY KEY NOT NULL,
+    habitantes_id int(4) NOT NULL,
+    valor_total int(12) NOT NULL,
+    fecha_emision DATE ,
+    fecha_vencimiento DATE,
+    estado_factura varchar(20) NOT NULL
+);
+
+CREATE TABLE detalle_facturas(
+    id int(4) PRIMARY KEY NOT NULL,
+    facturas_id int(4) NOT NULL,
+    tipo_cobros_id int(4) NOT NULL,
+    fecha DATE
+);
+
+CREATE TABLE tipo_cobros(
+    id int(4) PRIMARY KEY NOT NULL,
+    tipo_cobro varchar(40) NOT NULL,
+    descripcion varchar(100) NOT NULL,
+    valor   int(12) NOT NULL
+);
