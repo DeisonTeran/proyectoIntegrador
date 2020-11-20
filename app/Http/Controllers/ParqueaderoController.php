@@ -29,14 +29,13 @@ class ParqueaderoController extends Controller
             $parqueadero = parqueadero::join('lista_vehiculos', 'lista_vehiculos.id', '=', 'parqueaderos.lista_vehiculos_id')
                 ->SELECT('parqueaderos.id', 'lista_vehiculos.placa', 'lista_vehiculos.modelo', 'parqueaderos.fecha', 'parqueaderos.estado_ingreso')
                 ->where('estado_ingreso', '=', $estado)
-                /**->orwhere('fecha', 'LIKE', '%' . $query . '%')
+                ->orwhere('fecha', 'LIKE', '%' . $query . '%')
                 ->orwhere('placa', 'LIKE', '%' . $query . '%')
                 ->orwhere('modelo', 'LIKE', '%' . $query . '%')
-                ->whereNotIn('estado_ingreso', [$estado])*/
+                //->whereNotIn('estado_ingreso', [$estado])
                 ->orderBy('parqueaderos.id', 'DESC')->paginate(6);
             //dd($parqueadero);
-            //->orwhere('estado_ingreso', 'LIKE', '%' . $query . '%')
-
+            
             return view('parqueadero.index', ["parqueadero" => $parqueadero, "searchText" => $query]);
         }
     }
@@ -118,12 +117,10 @@ class ParqueaderoController extends Controller
 
     public function ingresar($id)
     {
-        /**$sv = parqueadero::findOrFail($id);
+        echo 'ingresar';
+        $sv = parqueadero::findOrFail($id);
         $sv->estado_ingreso = 'Salio/Ingreso';
         $sv->update();
-        return Redirect::to('parqueadero');*/
-        $vehiculo = parqueadero::findOrFail($id);
-        $vehiculo->delete();
         return Redirect::to('parqueadero');
     }
 }

@@ -26,14 +26,13 @@ class Detalle_facturaController extends Controller
         if ($request) {
             $query = trim($request->get('searchText'));
 
-            /**$Detalle_factura = Detalle_factura::join('detalle_facturas', 'detalle_facturas.facruras_id', '=', 'facturas.id')
+            /**$Detalle_factura = Detalle_factura::SELECT('detalle_facturas.id', 'habitantes.nombres', 'habitantes.apellidos', 'habitantes.numero_identificacion', 'tipo_cobros.tipo_cobro', 'detalle_facturas.fecha', 'tipo_cobros.valor', 'tipo_cobros.descripcion')
+                ->join('detalle_facturas', 'detalle_facturas.facruras_id', '=', 'facturas.id')
                 ->join('facturas', 'facturas.habitantes_id', '=', 'habitantes.id')
-                ->join('detalle_facturas', 'detalle_facturas.tipo_cobros', '=', 'tipo_cobros.id')
-                ->SELECT('detalle_facturas.id', 'habitantes.nombres', 'habitantes.apellidos', 'habitantes.numero_identificacion', 'tipo_cobros.tipo_multa', 'detalle_facturas.fecha', 'tipo_cobros.valor', 'tipo_cobros.descripcion')
-                ->where('fecha', 'LIKE', '%' . $query . '%')
+                ->join('detalle_facturas', 'detalle_facturas.tipo_cobros_id', '=', 'tipo_cobros.id')
                 ->orderBy('detalle_facturas.id', 'DESC')
                 ->paginate(4);*/
-                $Detalle_factura = Detalle_factura::where('fecha', 'LIKE', '%' . $query . '%')
+            $Detalle_factura = Detalle_factura::where('fecha', 'LIKE', '%' . $query . '%')
                 ->orderBy('detalle_facturas.id', 'DESC')
                 ->paginate(4);
 

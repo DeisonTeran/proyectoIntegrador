@@ -38,7 +38,7 @@
                         <td>{{$Parqueaderos->fecha}}</td>
                         <td>{{$Parqueaderos->estado_ingreso }}</td>
                         <td>
-                            <a href="" data-target="#modal-delete-{{$Parqueaderos->id}}" data-toggle="modal">
+                            <a href="{{route('ingresar', [$Parqueaderos->id])}}" >
                                 <button class="btn btn-danger">Ingresar</button>
                             </a>
                         </td>
