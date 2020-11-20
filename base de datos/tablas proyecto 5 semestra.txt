@@ -47,3 +47,18 @@ CREATE TABLE tipo_cobros(
     descripcion varchar(100) NOT NULL,
     valor   int(12) NOT NULL
 );
+
+
+CREATE TABLE detalles(
+    id int(4) PRIMARY KEY NOT NULL,
+    habitantes_id int(4) NOT NULL,
+    apartamentos_id int(4) NOT NULL,
+    tipo_habitante varchar(40) NOT NULL
+);
+
+CREATE TABLE apartamentos(
+    id int(4) PRIMARY KEY NOT NULL,
+    bloque varchar(4) NOT NULL,
+    numero_apartamento int(4) NOT NULL,
+    estado_apartamento varchar(20) NOT NULL
+);
