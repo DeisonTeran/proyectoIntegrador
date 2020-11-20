@@ -6,9 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Detalle_factura;
 use App\Factura;
+use App\Detalle;
 use App\habitante;
 use App\Tipo_cobro;
 use Illuminate\Support\Facades\Redirect;
+
+use App\Http\Requests\MultaCreateRequest;
+use App\Http\Requests\MultaEditRequest;
 
 class Detalle_facturaController extends Controller
 {
@@ -22,10 +26,17 @@ class Detalle_facturaController extends Controller
         if ($request) {
             $query = trim($request->get('searchText'));
 
-            $Detalle_factura = Detalle_factura::where('fecha', 'LIKE', '%' . $query . '%')
-                ->join('tipo_cobros', 'tipo_cobros.id', '=', 'detalle_facturas.tipo_cobros_id')
-                ->orwhere('tipo_cobro', 'LIKE', '%' . $query . '%')
-                ->orderBy('facturas_id', 'DESC')->paginate(3);
+            /**$Detalle_factura = Detalle_factura::join('detalle_facturas', 'detalle_facturas.facruras_id', '=', 'facturas.id')
+                ->join('facturas', 'facturas.habitantes_id', '=', 'habitantes.id')
+                ->join('detalle_facturas', 'detalle_facturas.tipo_cobros', '=', 'tipo_cobros.id')
+                ->SELECT('detalle_facturas.id', 'habitantes.nombres', 'habitantes.apellidos', 'habitantes.numero_identificacion', 'tipo_cobros.tipo_multa', 'detalle_facturas.fecha', 'tipo_cobros.valor', 'tipo_cobros.descripcion')
+                ->where('fecha', 'LIKE', '%' . $query . '%')
+                ->orderBy('detalle_facturas.id', 'DESC')
+                ->paginate(4);*/
+                $Detalle_factura = Detalle_factura::where('fecha', 'LIKE', '%' . $query . '%')
+                ->orderBy('detalle_facturas.id', 'DESC')
+                ->paginate(4);
+
 
             return view('multa.index', ["Detalle_factura" => $Detalle_factura, "searchText" => $query]);
         }
@@ -50,7 +61,7 @@ class Detalle_facturaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MultaCreateRequest $request)
     {
         $id_habitant = habitante::select('id')
             ->where('numero_identificacion', '=', $request->get('documento'))->first();
@@ -58,47 +69,60 @@ class Detalle_facturaController extends Controller
 
         if (strlen($id_habitante) == 0) {
 
-            echo 'no registrado';
+            echo '<script type="text/javascript">
+            alert("Responsable no reguistrado");
+            window.location.href="multa/create";
+                </script>';
         } else {
 
-            $profession = Factura::select('id')
-                ->where('estado_factura', '=', 'no generada')
+            $profession = Detalle::select('tipo_habitante')
                 ->where('habitantes_id', '=', $id_habitante->id)->first();
-            $id_factura = $profession;
+            $tipo = $profession;
 
-
-            if (strlen($id_factura) == 0) {
-
-                echo 'no encontro factura con estado no generada se genera una';
-                $factura = new Factura;
-                $factura->habitantes_id = $id_habitante->id;
-                $factura->valor_total = 0;
-                $factura->estado_factura = 'no generada';
-                $factura->save();
+            if ($tipo->tipo_habitante == 'PROPIETARIO' || $tipo->tipo_habitante == 'PROPIETARIO RESIDENTE' || $tipo->tipo_habitante == 'ARRENDATARIO') {
 
                 $profession = Factura::select('id')
                     ->where('estado_factura', '=', 'no generada')
                     ->where('habitantes_id', '=', $id_habitante->id)->first();
-
                 $id_factura = $profession;
 
-                $detalle = new Detalle_factura;
-                $detalle->facturas_id = $id_factura->id;
-                $detalle->tipo_cobros_id = $request->get('multa');
-                $detalle->fecha = $request->get('fecha');
-                $detalle->save();
-                return Redirect::to('multa');
 
+                if (strlen($id_factura) == 0) {
+
+                    $factura = new Factura;
+                    $factura->habitantes_id = $id_habitante->id;
+                    $factura->valor_total = 0;
+                    $factura->estado_factura = 'no generada';
+                    $factura->save();
+
+                    $profession = Factura::select('id')
+                        ->where('estado_factura', '=', 'no generada')
+                        ->where('habitantes_id', '=', $id_habitante->id)->first();
+
+                    $id_factura = $profession;
+
+                    $detalle = new Detalle_factura;
+                    $detalle->facturas_id = $id_factura->id;
+                    $detalle->tipo_cobros_id = $request->get('multa');
+                    $detalle->fecha = $request->get('fecha');
+                    $detalle->save();
+                    return Redirect::to('multa');
+                } else {
+                    echo $id_factura->id . ' ';
+                    echo 'si la encontro';
+
+                    $detalle = new Detalle_factura;
+                    $detalle->facturas_id = $id_factura->id;
+                    $detalle->tipo_cobros_id = $request->get('multa');
+                    $detalle->fecha = $request->get('fecha');
+                    $detalle->save();
+                    return Redirect::to('multa');
+                }
             } else {
-                echo $id_factura->id . ' ';
-                echo 'si la encontro';
-
-                $detalle = new Detalle_factura;
-                $detalle->facturas_id = $id_factura->id;
-                $detalle->tipo_cobros_id = $request->get('multa');
-                $detalle->fecha = $request->get('fecha');
-                $detalle->save();
-                return Redirect::to('multa');
+                echo '<script type="text/javascript">
+                alert("no es la cedula del responsable del apartamento");
+                window.location.href="multa/create";
+                    </script>';
             }
         }
     }
@@ -123,7 +147,8 @@ class Detalle_facturaController extends Controller
     public function edit($id)
     {
         $Detalle_factura = Detalle_factura::findOrFail($id);
-        return view("multa.edit", ["Detalle_factura" => $Detalle_factura]);
+        $tipo_cobros = Tipo_cobro::all();
+        return view("multa.edit", ["Detalle_factura" => $Detalle_factura, "tipo_cobros" => $tipo_cobros]);
     }
 
     /**
@@ -133,9 +158,9 @@ class Detalle_facturaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MultaEditRequest $request, $id)
     {
-        $detalle = new Detalle_factura;
+        $detalle = Detalle_factura::findOrFail($id);
         $detalle->tipo_cobros_id = $request->get('multa');
         $detalle->fecha = $request->get('fecha');
         $detalle->update();
@@ -152,6 +177,6 @@ class Detalle_facturaController extends Controller
     {
         $detalle_factura = Detalle_factura::findOrFail($id);
         $detalle_factura->delete();
-        return Redirect::to('Lista_vehiculo');
+        return Redirect::to('multa');
     }
 }

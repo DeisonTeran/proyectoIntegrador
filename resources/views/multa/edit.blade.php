@@ -19,14 +19,14 @@
     <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
         <div class="form-group">
             <br><label for="documento">Numero Documento del responsable a multar</label>
-            <input type="number" name="documento" id="documento" class="form-control" placeholder="Digite el número Documento">
+            <input type="number" name="documento" id="documento" class="form-control" value="{{$Detalle_factura->facturas->habitantes->numero_identificacion}}">
         </div>
 
         <div class="form-group">
 
             <label for="multa">Tipo de multa:</label>
             <select name="multa" id="multa" class="form-control selectpicker" data-livesearch="true">
-                <option value="" disabled selected>multas:</option>
+                <option value="{{$Detalle_factura->tipo_cobros->id}}" selected>{{$Detalle_factura->tipo_cobros->tipo_cobro}}</option>
                 @foreach($tipo_cobros as $tipo)
                 <option value="{{$tipo->id}}">{{$tipo->tipo_cobro}}</option>
                 @endforeach

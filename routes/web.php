@@ -20,6 +20,7 @@ Route::get('/', function () {
 Route::resource('multa','Detalle_facturaController');
 Route::resource('Lista_vehiculo','Lista_VehiculoController');
 Route::resource('parqueadero','ParqueaderoController');
-Route::resource('Ingresar','ParqueaderoController');
+Route::get('ingresar','ParqueaderoController@ingresar');
+//Route::resource('Ingresar','ParqueaderoController');
 
 

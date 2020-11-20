@@ -9,6 +9,9 @@ use App\Lista_vehiculo;
 use App\habitante;
 use Illuminate\Support\Facades\Redirect;
 
+use App\Http\Requests\Lista_vehiculoCreateRequest;
+use App\Http\Requests\Lista_vehiculoEditRequest;
+
 class Lista_VehiculoController extends Controller
 {
     /**
@@ -49,7 +52,7 @@ class Lista_VehiculoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Lista_vehiculoCreateRequest $request)
     {
         $query = trim($request->get('documento'));
         $placaVehi = $request->get('placaVehi');
@@ -141,7 +144,7 @@ class Lista_VehiculoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Lista_vehiculoEditRequest $request, $id)
     {
         $query = $request->get('placaVehi');
 

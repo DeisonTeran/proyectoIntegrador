@@ -23,7 +23,7 @@
         </div> 
       <div class="form-group">
       <label for="tipoVehi">tipo de vehiculo</label>
-      <select name="tipoVehi" id="tipoVehi" class="form-control selectpicker" data-livesearch="true" required>
+      <select name="tipoVehi" id="tipoVehi" class="form-control selectpicker" data-livesearch="true">
       <option value="" disabled selected>Opcion de vehiculo:</option>
       <option value="Motocicleta">Motocicleta</option>
       <option value="Automovil">Automovil</option>

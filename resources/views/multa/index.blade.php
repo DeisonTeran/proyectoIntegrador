@@ -7,6 +7,7 @@
       </h1>
 <div class="row">
        <div class="col-md-8 col-xs-12">
+       <h4>Ingrese la fecha de registro para consultar:</h4>
             @include('multa.search')
             </div>
             <div class="col-md-2">

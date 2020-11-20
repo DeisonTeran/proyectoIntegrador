@@ -7,12 +7,12 @@
 </h1>
 <div class="row">
     <div class="col-md-8 col-xs-12">
-        <h4>Ingrese la placa o el modelo para consultar:</h4>
+        <h4>Ingrese la placa, fecha de registro, estado o el modelo para consultar:</h4>
         @include('parqueadero.search')
     </div>
-    <div class="col-md-2 ">
+    <div class="col-md-3 ">
         <a href="parqueadero/create" class="pull-right">
-            <button class="btn btn-success">Registrar al parqueadero</button>
+            <button class="btn btn-success">Registrar salida del parqueadero</button>
         </a>
     </div>
 
@@ -33,13 +33,14 @@
                     @foreach($parqueadero as $Parqueaderos)
                     <tr>
                         <td>{{$Parqueaderos->id}}</td>
-                        <td>{{$Parqueaderos->lista_vehiculos->placa}}</td>
-                        <td>{{$Parqueaderos->lista_vehiculos->modelo}}</td>
+                        <td>{{$Parqueaderos->placa}}</td>
+                        <td>{{$Parqueaderos->modelo}}</td>
                         <td>{{$Parqueaderos->fecha}}</td>
                         <td>{{$Parqueaderos->estado_ingreso }}</td>
                         <td>
-
-
+                            <a href="" data-target="#modal-delete-{{$Parqueaderos->id}}" data-toggle="modal">
+                                <button class="btn btn-danger">Ingresar</button>
+                            </a>
                         </td>
                     </tr>
                     @include('parqueadero.modal')

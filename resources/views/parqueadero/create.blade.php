@@ -34,14 +34,18 @@
       <input type="text" name="fecha" class="form-control" placeholder="Fecha Salida.." 
       value="{{date('Y-m-d H:i:s') }}">
       </div>
-      <div class="form-group">
+      <!--<div class="form-group">
       <label for="estado">Estado</label>
       <select name="estado" id="estado" class="form-control selectpicker" data-livesearch="true" >
       <option value="" disabled selected>Opcion de Estado:</option>
       <option value="Ingreso">Ingreso</option>
       <option value="Salio">Salio</option>
       </select>
-      </div>
+      </div>-->
+      <div class="form-group">
+            <label for="fecha">Estado:</label>
+            <input type="text" name="fecha" class="form-control" placeholder="Fecha Salida.." value="Salida" disabled>
+        </div>
       <div class="form-group">
       
        <div class="col-lg-11 col-md-6 col-sm-6 col-xs-12">
