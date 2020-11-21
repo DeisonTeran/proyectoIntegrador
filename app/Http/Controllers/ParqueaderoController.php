@@ -32,7 +32,6 @@ class ParqueaderoController extends Controller
                 ->orwhere('fecha', 'LIKE', '%' . $query . '%')
                 ->orwhere('placa', 'LIKE', '%' . $query . '%')
                 ->orwhere('modelo', 'LIKE', '%' . $query . '%')
-                //->whereNotIn('estado_ingreso', [$estado])
                 ->orderBy('parqueaderos.id', 'DESC')->paginate(6);
             //dd($parqueadero);
             
@@ -115,12 +114,25 @@ class ParqueaderoController extends Controller
         //
     }
 
-    public function ingresar($id)
+    public function ingresar($id,$placa)
     {
-        echo 'ingresar';
+
         $sv = parqueadero::findOrFail($id);
-        $sv->estado_ingreso = 'Salio/Ingreso';
+        $sv->estado_ingreso = 'Salio-Ingreso';
         $sv->update();
+
+
+        $id_vehi= Lista_vehiculo::select('id')
+        ->where('placa', '=', $placa)->first();
+        $id_vehicu = $id_vehi->id;
+
+        $fecha=date('Y-m-d H:i:s');
+        
+        $parqueadero = new parqueadero;
+        $parqueadero->lista_vehiculos_id = $id_vehicu ;
+        $parqueadero->fecha = $fecha;
+        $parqueadero->estado_ingreso = 'Ingreso';
+        $parqueadero->save();
         return Redirect::to('parqueadero');
     }
 }

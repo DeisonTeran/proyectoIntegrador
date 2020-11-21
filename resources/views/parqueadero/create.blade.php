@@ -44,7 +44,7 @@
       </div>-->
       <div class="form-group">
             <label for="fecha">Estado:</label>
-            <input type="text" name="fecha" class="form-control" placeholder="Fecha Salida.." value="Salida" disabled>
+            <input type="text" name="fecha" class="form-control" placeholder="" value="Salio" disabled>
         </div>
       <div class="form-group">
       

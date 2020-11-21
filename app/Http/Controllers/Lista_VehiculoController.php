@@ -24,10 +24,29 @@ class Lista_VehiculoController extends Controller
         if ($request) {
             $query = trim($request->get('searchText'));
 
-            $vehiculoL = Lista_vehiculo::where('placa', 'LIKE', '%' . $query . '%')
+            /**$vehiculoL = Lista_vehiculo::join('lista_vehiculos as lista', 'lista.habitantes_id', '=', 'habitantes.id')
+                ->SELECT('lista.id', 'habitantes.nombres', 'habitantes.apellidos', 'habitantes.numero_identificacion', 'habitantes.telefono', 'habitantes.correo', 'lista_vehiculos.tipo_vehiculo', 'lista_vehiculos.modelo', 'lista_vehiculos.placa')
+                ->orwhere('habitantes.nombres', 'LIKE', '%' . $query . '%')
+                ->orwhere('lista.placa', 'LIKE', '%' . $query . '%')
+                ->orwhere('lista.modelo', 'LIKE', '%' . $query . '%')
+                ->orwhere('lista.tipo_vehiculo', 'LIKE', '%' . $query . '%')
+                ->orderBy('lista.id', 'DESC')->paginate(3);
+                $vehiculoL = Lista_vehiculo::orwhere('placa', 'LIKE', '%' . $query . '%')
                 ->orwhere('modelo', 'LIKE', '%' . $query . '%')
                 ->orwhere('tipo_vehiculo', 'LIKE', '%' . $query . '%')
-                ->orderBy('id', 'DESC')->paginate(3);
+                ->orderBy('id', 'DESC')->paginate(3);*/
+                
+                $vehiculoL = Lista_vehiculo::join('habitantes', 'habitantes.id', '=' , 'lista_vehiculos.habitantes_id')
+                ->SELECT('lista_vehiculos.id','habitantes.nombres','habitantes.apellidos',
+                'habitantes.numero_identificacion','habitantes.telefono','habitantes.correo',
+                'lista_vehiculos.tipo_vehiculo','lista_vehiculos.modelo','lista_vehiculos.placa')
+                ->orwhere('habitantes.nombres', 'LIKE', '%' . $query . '%')
+                ->orwhere('habitantes.apellidos', 'LIKE', '%' . $query . '%')
+                ->orwhere('habitantes.numero_identificacion', 'LIKE', '%' . $query . '%')
+                ->orwhere('placa', 'LIKE', '%' . $query . '%')
+                ->orwhere('modelo', 'LIKE', '%' . $query . '%')
+                ->orwhere('tipo_vehiculo', 'LIKE', '%' . $query . '%')
+                ->orderBy('lista_vehiculos.id', 'DESC')->paginate(6); 
 
             return view('vehiculoL.index', ["vehiculoL" => $vehiculoL, "searchText" => $query]);
         }
@@ -158,18 +177,17 @@ class Lista_VehiculoController extends Controller
         echo $verificacion;
         echo ' '.$id;*/
 
-            $sv = lista_vehiculo::findOrFail($id);
+        $sv = lista_vehiculo::findOrFail($id);
 
-            $sv->tipo_vehiculo = $request->get('tipoVehi');
+        $sv->tipo_vehiculo = $request->get('tipoVehi');
 
-            $sv->modelo = $request->get('modeloVehi');
+        $sv->modelo = $request->get('modeloVehi');
 
-            $sv->placa = $request->get('placaVehi');
+        $sv->placa = $request->get('placaVehi');
 
-            $sv->update();
+        $sv->update();
 
-            return Redirect::to('Lista_vehiculo');
-
+        return Redirect::to('Lista_vehiculo');
     }
 
     /**

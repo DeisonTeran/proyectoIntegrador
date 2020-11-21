@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-2 ">
             <a href="Lista_vehiculo/create" class="pull-right">
-                <button class="btn btn-success">Vehiculos</button>
+                <button class="btn btn-success">Registrar vehiculos</button>
                 </a>
             </div>
             
@@ -37,11 +37,11 @@
             @foreach($vehiculoL as $sv)
             <tr>
             <td>{{$sv->id}}</td>
-            <td>{{$sv->habitantes->nombres}}</td>
-            <td>{{$sv->habitantes->apellidos}}</td>
-            <td>{{$sv->habitantes->numero_identificacion}}</td>
-            <td>{{$sv->habitantes->telefono}}</td>
-            <td>{{$sv->habitantes->correo}}</td>
+            <td>{{$sv->nombres}}</td>
+            <td>{{$sv->apellidos}}</td>
+            <td>{{$sv->numero_identificacion}}</td>
+            <td>{{$sv->telefono}}</td>
+            <td>{{$sv->correo}}</td>
             <td>{{$sv->tipo_vehiculo}}</td>
             <td>{{$sv->modelo}}</td>
             <td>{{$sv->placa}}</td>

@@ -38,8 +38,8 @@
                         <td>{{$Parqueaderos->fecha}}</td>
                         <td>{{$Parqueaderos->estado_ingreso }}</td>
                         <td>
-                            <a href="{{route('ingresar', [$Parqueaderos->id])}}" >
-                                <button class="btn btn-danger">Ingresar</button>
+                            <a href="{{route('ingresar', [$Parqueaderos->id,$Parqueaderos->placa])}}" >
+                                <button class="btn btn-primary">Ingresar</button>
                             </a>
                         </td>
                     </tr>
