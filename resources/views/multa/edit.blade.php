@@ -26,9 +26,9 @@
 
             <label for="multa">Tipo de multa:</label>
             <select name="multa" id="multa" class="form-control selectpicker" data-livesearch="true">
-                <option value="{{$Detalle_factura->tipo_cobros->id}}" selected>{{$Detalle_factura->tipo_cobros->tipo_cobro}}</option>
+                <option value="{{$Detalle_factura->concepto_cobros->id}}" selected>{{$Detalle_factura->concepto_cobros->descripcion}}</option>
                 @foreach($tipo_cobros as $tipo)
-                <option value="{{$tipo->id}}">{{$tipo->tipo_cobro}}</option>
+                <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
                 @endforeach
             </select>
         </div>

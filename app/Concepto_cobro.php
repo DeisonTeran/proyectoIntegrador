@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tipo_cobro extends Model
+class Concepto_cobro extends Model
 {
     protected $fillable = ['tipo_cobro', 'descripcion', 'valor'];
     public $timestamps = false;

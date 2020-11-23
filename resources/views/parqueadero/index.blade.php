@@ -31,6 +31,8 @@
                 </thead>
                 <tbody>
                     @foreach($parqueadero as $Parqueaderos)
+
+                    @if($Parqueaderos->estado_ingreso == 'Salio')
                     <tr>
                         <td>{{$Parqueaderos->id}}</td>
                         <td>{{$Parqueaderos->placa}}</td>
@@ -44,6 +46,7 @@
                         </td>
                     </tr>
                     @include('parqueadero.modal')
+                    @endif
                     @endforeach
                 </tbody>
             </table>

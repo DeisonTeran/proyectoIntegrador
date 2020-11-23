@@ -28,7 +28,6 @@ class ParqueaderoController extends Controller
 
             $parqueadero = parqueadero::join('lista_vehiculos', 'lista_vehiculos.id', '=', 'parqueaderos.lista_vehiculos_id')
                 ->SELECT('parqueaderos.id', 'lista_vehiculos.placa', 'lista_vehiculos.modelo', 'parqueaderos.fecha', 'parqueaderos.estado_ingreso')
-                ->where('estado_ingreso', '=', $estado)
                 ->orwhere('fecha', 'LIKE', '%' . $query . '%')
                 ->orwhere('placa', 'LIKE', '%' . $query . '%')
                 ->orwhere('modelo', 'LIKE', '%' . $query . '%')

@@ -18,8 +18,8 @@ class Detalle_factura extends Model
 
     //Relacion con la tabla facturas 
 
-    public function tipo_cobros()
+    public function concepto_cobros()
     {
-        return $this->belongsTo('App\Tipo_cobro');
+        return $this->belongsTo('App\Concepto_cobro');
     }
 }

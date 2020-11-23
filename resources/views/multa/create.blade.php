@@ -29,7 +29,7 @@
             <select name="multa" id="multa" class="form-control selectpicker" data-livesearch="true">
                 <option value="" disabled selected>multas:</option>
                 @foreach($multa as $tipo)
-                <option value="{{$tipo->id}}">{{ $tipo->tipo_cobro }}</option>
+                <option value="{{$tipo->id}}">{{ $tipo->descripcion }}</option>
                 @endforeach
             </select>
         </div>

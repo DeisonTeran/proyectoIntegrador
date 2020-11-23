@@ -8,7 +8,7 @@ use App\Detalle_factura;
 use App\Factura;
 use App\Detalle;
 use App\habitante;
-use App\Tipo_cobro;
+use App\Concepto_cobro;
 use Illuminate\Support\Facades\Redirect;
 
 use App\Http\Requests\MultaCreateRequest;
@@ -26,14 +26,17 @@ class Detalle_facturaController extends Controller
         if ($request) {
             $query = trim($request->get('searchText'));
 
-            $Detalle_factura = Detalle_factura::join('detalle_facturas', 'detalle_facturas.facturas_id', '=', 'facturas.id')
-                ->join('facturas', 'facturas.habitantes_id', '=', 'habitantes.id')
-                ->join('detalle_facturas', 'detalle_facturas.tipo_cobros_id', '=', 'tipo_cobros.id')
-                    ->SELECT('detalle_facturas.id', 'habitantes.nombres', 
-                    'habitantes.apellidos', 'habitantes.numero_identificacion', 
-                    'tipo_cobros.tipo_cobro', 'detalle_facturas.fecha', 
-                    'tipo_cobros.valor', 'tipo_cobros.descripcion' )
-                ->where('detalle_facturas.fecha', 'LIKE', '%' . $query . '%')
+            $Detalle_factura = Detalle_factura::join('facturas as de', 'detalle_facturas.facturas_id', '=', 'de.id')
+                ->join('habitantes as ha', 'de.habitantes_id', '=', 'ha.id')
+                ->join('concepto_cobros as concep', 'detalle_facturas.concepto_cobros_id', '=', 'concep.id')
+                ->SELECT('detalle_facturas.id', 'ha.nombres', 
+                'ha.apellidos', 'ha.numero_identificacion', 
+                'concep.tipo_cobro', 'detalle_facturas.fecha', 
+                'concep.valor', 'concep.descripcion' )
+                ->orwhere('detalle_facturas.fecha', 'LIKE', '%' . $query . '%')
+                ->orwhere('ha.nombres', 'LIKE', '%' . $query . '%')
+                ->orwhere('ha.apellidos', 'LIKE', '%' . $query . '%')
+                ->orwhere('ha.numero_identificacion', 'LIKE', '%' . $query . '%')
                 ->orderBy('detalle_facturas.id', 'DESC')
                 ->paginate(4);
                     
@@ -53,8 +56,9 @@ class Detalle_facturaController extends Controller
      */
     public function create()
     {
-        $multa = Tipo_cobro::orderBy('id', 'DESC')
-            ->select('tipo_cobros.id', 'tipo_cobros.tipo_cobro')
+        $multa = Concepto_cobro::orderBy('id', 'DESC')
+            ->select('concepto_cobros.id', 'concepto_cobros.tipo_cobro', 'concepto_cobros.descripcion')
+            ->where('concepto_cobros.tipo_cobro','=','Multa')
             ->get();
         return view('multa.create')->with('multa', $multa);
     }
@@ -107,7 +111,7 @@ class Detalle_facturaController extends Controller
 
                     $detalle = new Detalle_factura;
                     $detalle->facturas_id = $id_factura->id;
-                    $detalle->tipo_cobros_id = $request->get('multa');
+                    $detalle->concepto_cobros_id = $request->get('multa');
                     $detalle->fecha = $request->get('fecha');
                     $detalle->save();
                     return Redirect::to('multa');
@@ -117,7 +121,7 @@ class Detalle_facturaController extends Controller
 
                     $detalle = new Detalle_factura;
                     $detalle->facturas_id = $id_factura->id;
-                    $detalle->tipo_cobros_id = $request->get('multa');
+                    $detalle->concepto_cobros_id= $request->get('multa');
                     $detalle->fecha = $request->get('fecha');
                     $detalle->save();
                     return Redirect::to('multa');
@@ -151,7 +155,10 @@ class Detalle_facturaController extends Controller
     public function edit($id)
     {
         $Detalle_factura = Detalle_factura::findOrFail($id);
-        $tipo_cobros = Tipo_cobro::all();
+        $tipo_cobros = Concepto_cobro::orderBy('id', 'DESC')
+        ->select('concepto_cobros.id', 'concepto_cobros.tipo_cobro', 'concepto_cobros.descripcion')
+        ->where('concepto_cobros.tipo_cobro','=','Multa')
+        ->get();
         return view("multa.edit", ["Detalle_factura" => $Detalle_factura, "tipo_cobros" => $tipo_cobros]);
     }
 
@@ -165,7 +172,7 @@ class Detalle_facturaController extends Controller
     public function update(MultaEditRequest $request, $id)
     {
         $detalle = Detalle_factura::findOrFail($id);
-        $detalle->tipo_cobros_id = $request->get('multa');
+        $detalle->concepto_cobros_id = $request->get('multa');
         $detalle->fecha = $request->get('fecha');
         $detalle->update();
         return Redirect::to('multa');

@@ -7,7 +7,7 @@
       </h1>
 <div class="row">
        <div class="col-md-8 col-xs-12">
-       <h4>Ingrese la fecha de registro para consultar:</h4>
+       <h4>Ingrese la fecha, nombre, apellido o numero de identificacion del registro para consultar:</h4>
             @include('multa.search')
             </div>
             <div class="col-md-2">
@@ -35,13 +35,13 @@
                 @foreach($Detalle_factura as $multa)
                 <tr>
     <td>{{$multa->id}}</td>
-    <td>{{$multa->facturas->habitantes->nombres}}</td>
-    <td>{{$multa->facturas->habitantes->apellidos}}</td>
-    <td>{{$multa->facturas->habitantes->numero_identificacion}}</td>
-    <td>{{$multa->tipo_cobros->tipo_cobro}}</td>
+    <td>{{$multa->nombres}}</td>
+    <td>{{$multa->apellidos}}</td>
+    <td>{{$multa->numero_identificacion}}</td>
+    <td>{{$multa->tipo_cobro}}</td>
     <td>{{$multa->fecha}}</td>
-    <td>{{$multa->tipo_cobros->valor}}</td>
-    <td>{{$multa->tipo_cobros->descripcion}}</td>
+    <td>{{$multa->valor}}</td>
+    <td>{{$multa->descripcion}}</td>
     <td>
     <a href="{{URL::action('Detalle_facturaController@edit',$multa->id)}}"><button class="btn btn-primary">Actualizar</button></a>
     <a href="" data-target="#modal-delete-{{$multa->id}}"data-toggle="modal">
