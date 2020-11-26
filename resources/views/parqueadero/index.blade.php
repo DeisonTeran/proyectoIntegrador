@@ -7,7 +7,9 @@
 </h1>
 <div class="row">
     <div class="col-md-8 col-xs-12">
-        <h4>Ingrese la placa, fecha de registro, estado o el modelo para consultar:</h4>
+    <h4>Reporte de reguistros del parqueadero <a href="\imprimirParqueadero"><button class="btn btn-success"><span class="glyphicon glyphicon-download-alt"></span> Generar PDF</button></a></h4>
+    <br>
+        <h4>Ingrese la placa, fecha de registro o el modelo para consultar:</h4>
         @include('parqueadero.search')
     </div>
     <div class="col-md-3 ">
@@ -51,7 +53,7 @@
                 </tbody>
             </table>
         </div>
-        {{$parqueadero->links()}}
+        
     </div>
 </div>
 

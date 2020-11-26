@@ -28,10 +28,11 @@ class ParqueaderoController extends Controller
 
             $parqueadero = parqueadero::join('lista_vehiculos', 'lista_vehiculos.id', '=', 'parqueaderos.lista_vehiculos_id')
                 ->SELECT('parqueaderos.id', 'lista_vehiculos.placa', 'lista_vehiculos.modelo', 'parqueaderos.fecha', 'parqueaderos.estado_ingreso')
-                ->orwhere('fecha', 'LIKE', '%' . $query . '%')
-                ->orwhere('placa', 'LIKE', '%' . $query . '%')
-                ->orwhere('modelo', 'LIKE', '%' . $query . '%')
-                ->orderBy('parqueaderos.id', 'DESC')->paginate(6);
+                
+                ->orwhere('parqueaderos.fecha', 'LIKE', '%' . $query . '%')
+                ->orwhere('lista_vehiculos.placa', 'LIKE', '%' . $query . '%')
+                ->orwhere('lista_vehiculos.modelo', 'LIKE', '%' . $query . '%')
+                ->orderBy('parqueaderos.id', 'DESC')->get();
             //dd($parqueadero);
             
             return view('parqueadero.index', ["parqueadero" => $parqueadero, "searchText" => $query]);

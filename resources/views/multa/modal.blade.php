@@ -10,7 +10,7 @@ tabindex="-1"id="modal-delete-{{$multa->id}}">
                     <h4 class="modal-title">Eliminar multa</h4>
                 </div>
                 <div class="modal-body">
-                     <p>Confirme si desea Eliminar la multa de {{$multa->tipo_cobro}} a la persona por nombre {{$multa->nombres}} </p>
+                     <p>Confirme si desea Eliminar la multa de {{$multa->descripcion}} a la persona por nombre {{$multa->nombres}} </p>
                 </div>
                 <div class="modal-footer">
     <button type="button"class="btn btn-default"data-dismiss="modal">Cerrar
