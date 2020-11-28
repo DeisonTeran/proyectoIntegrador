@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('imprimirParqueadero','PdfParqueaderoController@imprimirParqueadero')->name('imprimirParqueadero');
+Route::get('imprimirParqueadero', 'PdfParqueaderoController@imprimirParqueadero')->name('imprimirParqueadero');
 Route::resource('multa','Detalle_facturaController');
 Route::resource('Lista_vehiculo','Lista_VehiculoController');
 Route::resource('parqueadero','ParqueaderoController');

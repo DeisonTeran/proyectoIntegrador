@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Lista_vehiculo;
 
+use App\parqueadero;
+
+
 use App\habitante;
 use Illuminate\Support\Facades\Redirect;
 
@@ -198,6 +201,10 @@ class Lista_VehiculoController extends Controller
      */
     public function destroy($id)
     {
+
+        $vehiculo = parqueadero::where('lista_vehiculos_id', '=',$id);
+        $vehiculo->delete();
+
         $vehiculo = lista_vehiculo::findOrFail($id);
         $vehiculo->delete();
         return Redirect::to('Lista_vehiculo');
