@@ -87,7 +87,7 @@ class Detalle_facturaController extends Controller
                 ->where('habitantes_id', '=', $id_habitante->id)->first();
             $tipo = $profession;
 
-            if ($tipo->tipo_habitante == 'PROPIETARIO' || $tipo->tipo_habitante == 'PROPIETARIO RESIDENTE' || $tipo->tipo_habitante == 'ARRENDATARIO') {
+            if ($tipo->tipo_habitante == 'propietario' || $tipo->tipo_habitante == 'residente/titular'){
 
                 $profession = Factura::select('id')
                     ->where('estado_factura', '=', 'no generada')
@@ -114,17 +114,22 @@ class Detalle_facturaController extends Controller
                     $detalle->concepto_cobros_id = $request->get('multa');
                     $detalle->fecha = $request->get('fecha');
                     $detalle->save();
-                    return Redirect::to('multa');
+                    //return Redirect::to('multa');
+                    echo '<script type="text/javascript">
+                    alert("Multa registrada");
+                    window.location.href="multa";
+                    </script>';
                 } else {
-                    echo $id_factura->id . ' ';
-                    echo 'si la encontro';
-
                     $detalle = new Detalle_factura;
                     $detalle->facturas_id = $id_factura->id;
                     $detalle->concepto_cobros_id= $request->get('multa');
                     $detalle->fecha = $request->get('fecha');
                     $detalle->save();
-                    return Redirect::to('multa');
+                    //return Redirect::to('multa');
+                    echo '<script type="text/javascript">
+                    alert("Multa registrada");
+                    window.location.href="multa";
+                    </script>';
                 }
             } else {
                 echo '<script type="text/javascript">
@@ -175,7 +180,11 @@ class Detalle_facturaController extends Controller
         $detalle->concepto_cobros_id = $request->get('multa');
         $detalle->fecha = $request->get('fecha');
         $detalle->update();
-        return Redirect::to('multa');
+        //return Redirect::to('multa');
+        echo '<script type="text/javascript">
+        alert("Multa Actualizada");
+        window.location.assign("http://localhost:8000/multa");
+        </script>';
     }
 
     /**
@@ -188,6 +197,10 @@ class Detalle_facturaController extends Controller
     {
         $detalle_factura = Detalle_factura::findOrFail($id);
         $detalle_factura->delete();
-        return Redirect::to('multa');
+        //return Redirect::to('multa');
+        echo '<script type="text/javascript">
+        alert("Multa Borrada");
+        window.location.assign("http://localhost:8000/multa");
+        </script>';
     }
 }

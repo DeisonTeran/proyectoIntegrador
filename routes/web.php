@@ -20,7 +20,7 @@ Route::get('imprimirParqueadero', 'PdfParqueaderoController@imprimirParqueadero'
 Route::resource('multa','Detalle_facturaController');
 Route::resource('Lista_vehiculo','Lista_VehiculoController');
 Route::resource('parqueadero','ParqueaderoController');
-Route::resource('ingresar/{id}/{placa}','ParqueaderoController');
+
 
 Route::get('ingresar/{id}/{placa}','ParqueaderoController@ingresar')->name('ingresar');
 

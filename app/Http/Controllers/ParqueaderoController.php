@@ -28,13 +28,13 @@ class ParqueaderoController extends Controller
 
             $parqueadero = parqueadero::join('lista_vehiculos', 'lista_vehiculos.id', '=', 'parqueaderos.lista_vehiculos_id')
                 ->SELECT('parqueaderos.id', 'lista_vehiculos.placa', 'lista_vehiculos.modelo', 'parqueaderos.fecha', 'parqueaderos.estado_ingreso')
-                
+
                 ->orwhere('parqueaderos.fecha', 'LIKE', '%' . $query . '%')
                 ->orwhere('lista_vehiculos.placa', 'LIKE', '%' . $query . '%')
                 ->orwhere('lista_vehiculos.modelo', 'LIKE', '%' . $query . '%')
                 ->orderBy('parqueaderos.id', 'DESC')->get();
             //dd($parqueadero);
-            
+
             return view('parqueadero.index', ["parqueadero" => $parqueadero, "searchText" => $query]);
         }
     }
@@ -66,7 +66,12 @@ class ParqueaderoController extends Controller
         $parqueadero->fecha = $request->get('fecha');
         $parqueadero->estado_ingreso = 'Salio';
         $parqueadero->save();
-        return Redirect::to('parqueadero');
+
+        //return Redirect::to('parqueadero');
+        echo '<script type="text/javascript">
+        alert("Salida registrada");
+        window.location.href="parqueadero";
+            </script>';
     }
 
     /**
@@ -114,7 +119,7 @@ class ParqueaderoController extends Controller
         //
     }
 
-    public function ingresar($id,$placa)
+    public function ingresar($id, $placa)
     {
 
         $sv = parqueadero::findOrFail($id);
@@ -122,17 +127,21 @@ class ParqueaderoController extends Controller
         $sv->update();
 
 
-        $id_vehi= Lista_vehiculo::select('id')
-        ->where('placa', '=', $placa)->first();
+        $id_vehi = Lista_vehiculo::select('id')
+            ->where('placa', '=', $placa)->first();
         $id_vehicu = $id_vehi->id;
 
-        $fecha=date('Y-m-d H:i:s');
-        
+        $fecha = date('Y-m-d H:i:s');
+
         $parqueadero = new parqueadero;
-        $parqueadero->lista_vehiculos_id = $id_vehicu ;
+        $parqueadero->lista_vehiculos_id = $id_vehicu;
         $parqueadero->fecha = $fecha;
         $parqueadero->estado_ingreso = 'Ingreso';
         $parqueadero->save();
-        return Redirect::to('parqueadero');
+        
+        echo '<script type="text/javascript">
+        alert("Ingreso registrado");
+        window.location.assign("http://localhost:8000/parqueadero");
+            </script>';
     }
 }

@@ -38,18 +38,26 @@ class Lista_VehiculoController extends Controller
                 ->orwhere('modelo', 'LIKE', '%' . $query . '%')
                 ->orwhere('tipo_vehiculo', 'LIKE', '%' . $query . '%')
                 ->orderBy('id', 'DESC')->paginate(3);*/
-                
-                $vehiculoL = Lista_vehiculo::join('habitantes', 'habitantes.id', '=' , 'lista_vehiculos.habitantes_id')
-                ->SELECT('lista_vehiculos.id','habitantes.nombres','habitantes.apellidos',
-                'habitantes.numero_identificacion','habitantes.telefono','habitantes.correo',
-                'lista_vehiculos.tipo_vehiculo','lista_vehiculos.modelo','lista_vehiculos.placa')
+
+            $vehiculoL = Lista_vehiculo::join('habitantes', 'habitantes.id', '=', 'lista_vehiculos.habitantes_id')
+                ->SELECT(
+                    'lista_vehiculos.id',
+                    'habitantes.nombres',
+                    'habitantes.apellidos',
+                    'habitantes.numero_identificacion',
+                    'habitantes.telefono',
+                    'habitantes.correo',
+                    'lista_vehiculos.tipo_vehiculo',
+                    'lista_vehiculos.modelo',
+                    'lista_vehiculos.placa'
+                )
                 ->orwhere('habitantes.nombres', 'LIKE', '%' . $query . '%')
                 ->orwhere('habitantes.apellidos', 'LIKE', '%' . $query . '%')
                 ->orwhere('habitantes.numero_identificacion', 'LIKE', '%' . $query . '%')
                 ->orwhere('placa', 'LIKE', '%' . $query . '%')
                 ->orwhere('modelo', 'LIKE', '%' . $query . '%')
                 ->orwhere('tipo_vehiculo', 'LIKE', '%' . $query . '%')
-                ->orderBy('lista_vehiculos.id', 'DESC')->paginate(6); 
+                ->orderBy('lista_vehiculos.id', 'DESC')->paginate(6);
 
             return view('vehiculoL.index', ["vehiculoL" => $vehiculoL, "searchText" => $query]);
         }
@@ -120,7 +128,11 @@ class Lista_VehiculoController extends Controller
                     $Lista->modelo = $request->get('modeloVehi');
                     $Lista->placa = $request->get('placaVehi');
                     $Lista->save();
-                    return Redirect::to('Lista_vehiculo');
+                    //return Redirect::to('Lista_vehiculo');
+                    echo '<script type="text/javascript">
+                    alert("vehiculo registrado");
+                    window.location.href="Lista_vehiculo";
+                    </script>';
                 } else {
                     echo '<script type="text/javascript">
                   alert("El propietario ya posee un vehiculo registrado");
@@ -190,7 +202,13 @@ class Lista_VehiculoController extends Controller
 
         $sv->update();
 
-        return Redirect::to('Lista_vehiculo');
+        //return Redirect::to('Lista_vehiculo');
+
+        echo '<script type="text/javascript">
+        alert("vehiculo Actualizado");
+        window.location.assign("http://localhost:8000/Lista_vehiculo");
+        </script>';
+        
     }
 
     /**
@@ -202,11 +220,16 @@ class Lista_VehiculoController extends Controller
     public function destroy($id)
     {
 
-        $vehiculo = parqueadero::where('lista_vehiculos_id', '=',$id);
+        $vehiculo = parqueadero::where('lista_vehiculos_id', '=', $id);
         $vehiculo->delete();
 
         $vehiculo = lista_vehiculo::findOrFail($id);
         $vehiculo->delete();
-        return Redirect::to('Lista_vehiculo');
+        //return Redirect::to('Lista_vehiculo');
+        
+        echo '<script type="text/javascript">
+        alert("vehiculo Borrado");
+        window.location.assign("http://localhost:8000/Lista_vehiculo");
+        </script>';
     }
 }
