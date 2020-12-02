@@ -21,7 +21,7 @@ CREATE TABLE parqueaderos(
     id int(4) PRIMARY KEY NOT NULL,
     lista_vehiculos_id int(4) NOT NULL,
     fecha datetime NOT NULL,
-    estado_ingreso varchar(10) NOT NULL
+    estado_ingreso varchar(20) NOT NULL
 );
 
 
@@ -37,11 +37,11 @@ CREATE TABLE facturas(
 CREATE TABLE detalle_facturas(
     id int(4) PRIMARY KEY NOT NULL,
     facturas_id int(4) NOT NULL,
-    tipo_cobros_id int(4) NOT NULL,
+    concepto_cobros_id int(4) NOT NULL,
     fecha DATE
 );
 
-CREATE TABLE tipo_cobros(
+CREATE TABLE concepto_cobros(
     id int(4) PRIMARY KEY NOT NULL,
     tipo_cobro varchar(40) NOT NULL,
     descripcion varchar(100) NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE tipo_cobros(
 );
 
 
-CREATE TABLE detalles(
+CREATE TABLE detalle_habitantes(
     id int(4) PRIMARY KEY NOT NULL,
     habitantes_id int(4) NOT NULL,
     apartamentos_id int(4) NOT NULL,
