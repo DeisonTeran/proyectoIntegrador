@@ -130,7 +130,7 @@ class Lista_VehiculoController extends Controller
                     $Lista->save();
                     //return Redirect::to('Lista_vehiculo');
                     echo '<script type="text/javascript">
-                    alert("vehiculo registrado");
+                    alert("Vehiculo registrado");
                     window.location.href="Lista_vehiculo";
                     </script>';
                 } else {
@@ -205,7 +205,7 @@ class Lista_VehiculoController extends Controller
         //return Redirect::to('Lista_vehiculo');
 
         echo '<script type="text/javascript">
-        alert("vehiculo Actualizado");
+        alert("Vehiculo Actualizado");
         window.location.assign("http://localhost:8000/Lista_vehiculo");
         </script>';
         
@@ -228,7 +228,7 @@ class Lista_VehiculoController extends Controller
         //return Redirect::to('Lista_vehiculo');
         
         echo '<script type="text/javascript">
-        alert("vehiculo Borrado");
+        alert("Vehiculo Borrado");
         window.location.assign("http://localhost:8000/Lista_vehiculo");
         </script>';
     }

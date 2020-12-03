@@ -23,9 +23,11 @@
       <select name="placa" id="placa" class="form-control selectpicker" data-livesearch="true"
        >
        <option value="" disabled selected>Vehiculo:</option>
+    
        @foreach($parqueadero as $vehiculo)
        <option value="{{$vehiculo->id}}">{{ $vehiculo->placa }}</option>
        @endforeach
+       
        </select>
        </div>
 

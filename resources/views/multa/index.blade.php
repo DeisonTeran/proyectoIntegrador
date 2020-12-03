@@ -33,6 +33,7 @@
                 </thead>
                 <tbody>
                     @foreach($Detalle_factura as $multa)
+                    @if($multa->estado_factura == 'no generada')
                     <tr>
                         <td>{{$multa->id}}</td>
                         <td>{{$multa->nombres}}</td>
@@ -50,11 +51,12 @@
                         </td>
                     </tr>
                     @include('multa.modal')
+                    @endif
                     @endforeach
                 </tbody>
             </table>
         </div>
-        {{$Detalle_factura->links()}}
+        
     </div>
 </div>
 

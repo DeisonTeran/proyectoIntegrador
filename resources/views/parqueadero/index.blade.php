@@ -24,7 +24,7 @@
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
-                    <th>Id</th>
+                    
                     <th>Placa</th>
                     <th>modelo</th>
                     <th>Fecha</th>
@@ -36,7 +36,7 @@
 
                     @if($Parqueaderos->estado_ingreso == 'Salio')
                     <tr>
-                        <td>{{$Parqueaderos->id}}</td>
+                        
                         <td>{{$Parqueaderos->placa}}</td>
                         <td>{{$Parqueaderos->modelo}}</td>
                         <td>{{$Parqueaderos->fecha}}</td>

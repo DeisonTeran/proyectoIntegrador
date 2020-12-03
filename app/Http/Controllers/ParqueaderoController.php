@@ -28,7 +28,6 @@ class ParqueaderoController extends Controller
 
             $parqueadero = parqueadero::join('lista_vehiculos', 'lista_vehiculos.id', '=', 'parqueaderos.lista_vehiculos_id')
                 ->SELECT('parqueaderos.id', 'lista_vehiculos.placa', 'lista_vehiculos.modelo', 'parqueaderos.fecha', 'parqueaderos.estado_ingreso')
-
                 ->orwhere('parqueaderos.fecha', 'LIKE', '%' . $query . '%')
                 ->orwhere('lista_vehiculos.placa', 'LIKE', '%' . $query . '%')
                 ->orwhere('lista_vehiculos.modelo', 'LIKE', '%' . $query . '%')
@@ -46,8 +45,13 @@ class ParqueaderoController extends Controller
      */
     public function create()
     {
-        $parqueadero = Lista_vehiculo::orderBy('id', 'DESC')
-            ->select('Lista_vehiculos.id', 'Lista_vehiculos.placa')
+        $estado='Salio';
+
+        $parqueadero = Lista_vehiculo::
+            //join('parqueaderos', 'lista_vehiculos.id', '=', 'parqueaderos.lista_vehiculos_id')
+            select('Lista_vehiculos.id', 'Lista_vehiculos.placa')
+            //->whereNotIn('parqueaderos.estado_ingreso', [$estado])
+            ->groupBy('lista_vehiculos.id','Lista_vehiculos.placa')
             ->get();
         return view('parqueadero.create')->with('parqueadero', $parqueadero);
     }

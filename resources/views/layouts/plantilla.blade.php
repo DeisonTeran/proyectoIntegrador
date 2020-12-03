@@ -260,9 +260,8 @@ desired effect
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-        <li><a href="multa"><i class="fa fa-link"></i> <span>Multas</span></a></li>
-        <li><a href="parqueadero"><i class="fa fa-link"></i> <span>Parqueadero</span></a></li>
-        <li><a href="Lista_vehiculo"><i class="fa fa-link"></i> <span>Vehiculos</span></a></li>
+        <li><a href="{{url('multa')}}"><i class="fa fa-link"></i> <span>Multas</span></a></li>
+        <li><a href="{{url('Lista_vehiculo')}}"><i class="fa fa-link"></i> <span>Vehiculos</span></a></li>
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
             <span class="pull-right-container">

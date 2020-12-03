@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Detalle_factura;
 use App\Factura;
-use App\Detalle;
+use App\Detalle_habitante;
 use App\habitante;
 use App\Concepto_cobro;
 use Illuminate\Support\Facades\Redirect;
@@ -32,13 +32,14 @@ class Detalle_facturaController extends Controller
                 ->SELECT('detalle_facturas.id', 'ha.nombres', 
                 'ha.apellidos', 'ha.numero_identificacion', 
                 'concep.tipo_cobro', 'detalle_facturas.fecha', 
-                'concep.valor', 'concep.descripcion' )
+                'concep.valor', 'concep.descripcion','de.estado_factura')
+                
                 ->orwhere('detalle_facturas.fecha', 'LIKE', '%' . $query . '%')
                 ->orwhere('ha.nombres', 'LIKE', '%' . $query . '%')
                 ->orwhere('ha.apellidos', 'LIKE', '%' . $query . '%')
                 ->orwhere('ha.numero_identificacion', 'LIKE', '%' . $query . '%')
                 ->orderBy('detalle_facturas.id', 'DESC')
-                ->paginate(4);
+                ->get();
                     
             /**$Detalle_factura = Detalle_factura::where('fecha', 'LIKE', '%' . $query . '%')
                 ->orderBy('detalle_facturas.id', 'DESC')
@@ -83,7 +84,7 @@ class Detalle_facturaController extends Controller
                 </script>';
         } else {
 
-            $profession = Detalle::select('tipo_habitante')
+            $profession = Detalle_habitante::select('tipo_habitante')
                 ->where('habitantes_id', '=', $id_habitante->id)->first();
             $tipo = $profession;
 
