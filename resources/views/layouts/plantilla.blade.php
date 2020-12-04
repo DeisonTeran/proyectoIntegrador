@@ -262,12 +262,9 @@ desired effect
         <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
         <li><a href="{{url('multa')}}"><i class="fa fa-link"></i> <span>Multas</span></a></li>
         <li><a href="{{url('Lista_vehiculo')}}"><i class="fa fa-link"></i> <span>Vehiculos</span></a></li>
+        <li><a href="{{url('parqueadero')}}"><i class="fa fa-link"></i> <span>parqueadero</span></a></li>
         <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-          </a>
+
           <ul class="treeview-menu">
             <li><a href="persona">persona</a></li>
             <li><a href="propietarios">propietario</a></li>
@@ -284,8 +281,8 @@ desired effect
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        
-        <small></small>
+        GESTION RESIDENCIAL
+        <small>CRUD</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>

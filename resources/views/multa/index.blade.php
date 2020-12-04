@@ -7,7 +7,7 @@
 </h1>
 <div class="row">
     <div class="col-md-8 col-xs-12">
-        <h4>Ingrese la fecha del registro, nombre, apellido o numero de identificacion del multado para consultar:</h4>
+        <h4>Ingrese la fecha del registro, nombre, apellido o numero de identificacion del multado:</h4>
         @include('multa.search')
     </div>
     <div class="col-md-2">

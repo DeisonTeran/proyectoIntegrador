@@ -7,7 +7,7 @@
       </h1>
 <div class="row">
        <div class="col-md-8 col-xs-12">
-       <h4>Ingrese el nombre, apellido o numero de identificacion del propietario o tambien la placa, el modelo o tipo de vehiculo para consultar:</h4>
+       <h4></h4>
             @include('vehiculoL.search')
             </div>
             <div class="col-md-2 ">
@@ -25,10 +25,10 @@
                 <th>Id</th>
                 <th>Nombres</th>
                 <th>Apellidos</th>
-                <th>Numero_identificacion</th>
+                <th>Numero identificacion</th>
                 <th>Telefono</th>
                 <th>Correo</th>
-                <th>Tipo_vehiculo</th>
+                <th>Tipo vehiculo</th>
                 <th>Modelo</th>
                 <th>Placa</th>
                 <th>Opciones</th>
