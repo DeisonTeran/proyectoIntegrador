@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <h3 class="text-center">Reporte de parqueadero</h3><img src="" alt="" width='100px'><br><br>
-        <h1 class="text-center">Unidad residencialxxx</h1>
+        <h1 class="text-center">Unidad residencial campo verde</h1>
         <h3 class="text-center">NIT: 123456-1</h3>
         <h3 class="text-center">Tel. 555555</h3><br> <br> <br>
         <table class="table table-bordered table-striped table-hover">
@@ -30,8 +30,8 @@
                 <td>{{$pro->estado_ingreso}}</td>
             </tr>@endforeach
         </table>
-        <h5 class="text-center">Grupo 511 -Tecnología en Sistemas</h5>
-        <h6>Software de Parqueaderos version 1</h6>
+        <h5 class="text-center">Unidad residencial campo verde</h5>
+        <h6>Software de Parqueaderos</h6>
     </div>
 </body>
 

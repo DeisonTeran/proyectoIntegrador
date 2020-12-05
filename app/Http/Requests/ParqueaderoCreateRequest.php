@@ -25,6 +25,7 @@ class ParqueaderoCreateRequest extends FormRequest
     {
         return [
             'placa'=>'required',
+            'placaVehi'=>'min:6',
             'fecha'=>'required',
             
         ];
@@ -34,6 +35,7 @@ class ParqueaderoCreateRequest extends FormRequest
     {
         return [
             'placa.required' => 'Se debe ingresar la placa del vehiculo',
+            'placaVehi.min'=>'la placa debe tener minimo 6 caracteres',
             'fecha.required' => 'Se debe ingresar la fecha',
             
     ];}

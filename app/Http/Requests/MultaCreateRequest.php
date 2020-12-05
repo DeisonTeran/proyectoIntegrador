@@ -25,6 +25,8 @@ class MultaCreateRequest extends FormRequest
     {
         return [
             'documento'=>'required',
+            'documento'=>'min:10',
+            'documento'=>'max:10',
             'multa'=>'required',
             'fecha'=>'required',
         ];
@@ -33,6 +35,8 @@ class MultaCreateRequest extends FormRequest
     public function messages()
     {
         return [
+            'documento.min'=>'El documento debe tener minimo 10 caracteres',
+            'documento.max'=>'El documento debe tener maximo 10 caracteres',
             'documento.required' => 'Se debe ingresar el documento',
             'multa.required' => 'Se debe seleccionar una multa',
             'fecha.required' => 'Se debe ingresar la fecha',

@@ -1,10 +1,9 @@
 @extends('layouts.plantilla') 
 @section('contenido') 
 
-<h1>Vehiculos
+<h2>Vehiculos
         
-        <small></small>
-      </h1>
+      </h2>
 <div class="row">
        <div class="col-md-8 col-xs-12">
        <h4></h4>
@@ -22,7 +21,7 @@
             <div class="table-responsive">
             <table class="table table-striped table-hover"> 
                 <thead>
-                <th>Id</th>
+                
                 <th>Nombres</th>
                 <th>Apellidos</th>
                 <th>Numero identificacion</th>
@@ -36,7 +35,7 @@
             <tbody>
             @foreach($vehiculoL as $sv)
             <tr>
-            <td>{{$sv->id}}</td>
+           
             <td>{{$sv->nombres}}</td>
             <td>{{$sv->apellidos}}</td>
             <td>{{$sv->numero_identificacion}}</td>

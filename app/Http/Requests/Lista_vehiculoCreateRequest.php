@@ -25,15 +25,19 @@ class Lista_vehiculoCreateRequest extends FormRequest
     {
         return [
             'documento'=>'required',
+            'documento'=>'min:10',
             'tipoVehi'=>'required',
             'modeloVehi'=>'required',
             'placaVehi'=>'required',
+            'placaVehi'=>'min:6|max:6',
         ];
     }
 
     public function messages()
     {
         return [
+            'placaVehi.min'=>'la placa debe tener minimo 6 caracteres',
+            'placaVehi.max'=>'la placa debe tener maximo 6 caracteres',
             'documento.required' => 'Se debe ingresar el documento',
             'tipoVehi.required' => 'Se debe seleccionar un tipo de vehiculo',
             'modeloVehi.required' => 'Se debe ingresar el modelo del vehiculo',

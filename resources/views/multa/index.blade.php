@@ -1,13 +1,11 @@
 @extends('layouts.plantilla')
 @section('contenido')
 
-<h1>Multas
-
-    <small></small>
-</h1>
+<h2>Multas
+</h2>
 <div class="row">
     <div class="col-md-8 col-xs-12">
-        <h4>Ingrese la fecha del registro, nombre, apellido o numero de identificacion del multado:</h4>
+        <h4></h4>
         @include('multa.search')
     </div>
     <div class="col-md-2">
@@ -21,7 +19,7 @@
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
-                    <th>Id</th>
+                    
                     <th>Nombres</th>
                     <th>Apellidos</th>
                     <th>Numero de identificación</th>
@@ -35,7 +33,7 @@
                     @foreach($Detalle_factura as $multa)
                     @if($multa->estado_factura == 'no generada')
                     <tr>
-                        <td>{{$multa->id}}</td>
+                        
                         <td>{{$multa->nombres}}</td>
                         <td>{{$multa->apellidos}}</td>
                         <td>{{$multa->numero_identificacion}}</td>

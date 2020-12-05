@@ -1,13 +1,13 @@
 @extends('layouts.plantilla')
 @section('contenido')
 
-<h1>Parqueadero
+<h2>Parqueadero
 
-</h1>
+</h2>
 <div class="row">
     <div class="col-md-8 col-xs-12">
     
-        <h4>Ingrese la placa, fecha de registro o el modelo para consultar:</h4>
+        <h4></h4>
         @include('parqueadero.search')
     </div>
     <div class="col-md-3">
